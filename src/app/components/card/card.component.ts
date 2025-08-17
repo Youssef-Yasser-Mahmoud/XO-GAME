@@ -8,15 +8,22 @@ import { Component, computed, signal } from '@angular/core';
   templateUrl: './card.component.html',
 })
 export class CardComponent {
-
-  board = signal<string[][]>([['', '', ''], ['', '', ''], ['', '', '']]);
+  board = signal<string[][]>([
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+  ]);
   currentPlayer = signal<'X' | 'O'>('X');
   winner = signal<'X' | 'O' | null>(null);
   isDraw = signal(false);
-  showResult= signal(false);
+  showResult = signal(false);
 
   initializeGame(): void {
-    this.board.set([['', '', ''], ['', '', ''], ['', '', '']]);
+    this.board.set([
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ]);
     this.currentPlayer.set('X');
     this.winner.set(null);
     this.isDraw.set(false);
@@ -26,7 +33,7 @@ export class CardComponent {
   makeMove(row: number, col: number): void {
     if (this.board()[row][col] || this.winner()) return;
 
-    const next = this.board().map(r => [...r]);
+    const next = this.board().map((r) => [...r]);
     next[row][col] = this.currentPlayer();
     this.board.set(next);
 
@@ -53,7 +60,7 @@ export class CardComponent {
   }
 
   checkDraw(): boolean {
-    return this.board().every(row => row.every(cell => cell !== ''));
+    return this.board().every((row) => row.every((cell) => cell !== ''));
   }
 
   resultTitle = computed(() => {
@@ -63,15 +70,16 @@ export class CardComponent {
   });
 
   winnerBadgeClasses = computed(() => ({
-    'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30': this.winner() === 'X',
-    'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30': this.winner() === 'O'
+    'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30':
+      this.winner() === 'X',
+    'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30':
+      this.winner() === 'O',
   }));
 
   closeModal(): void {
     this.showResult.set(false);
   }
 
-  // :white_check_mark: FIX: Add this method
   playAgain(): void {
     this.initializeGame();
   }
