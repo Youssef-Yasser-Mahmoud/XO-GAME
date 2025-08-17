@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -7,24 +7,16 @@ import { Component, OnInit, signal } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './card.component.html',
 })
-export class CardComponent implements OnInit {
-  board = signal<string[][]>([]);
+export class CardComponent {
+
+  board = signal<string[][]>([['', '', ''], ['', '', ''], ['', '', '']]);
   currentPlayer = signal<'X' | 'O'>('X');
   winner = signal<'X' | 'O' | null>(null);
-  isDraw = signal<boolean>(false);
-
-  showResult = signal<boolean>(false);
-
-  ngOnInit(): void {
-    this.initializeGame();
-  }
+  isDraw = signal(false);
+  showResult= signal(false);
 
   initializeGame(): void {
-    this.board.set([
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-    ]);
+    this.board.set([['', '', ''], ['', '', ''], ['', '', '']]);
     this.currentPlayer.set('X');
     this.winner.set(null);
     this.isDraw.set(false);
@@ -32,14 +24,14 @@ export class CardComponent implements OnInit {
   }
 
   makeMove(row: number, col: number): void {
-    if (this.board()[row][col] || this.winner()) {
-      return;
-    }
+    if (this.board()[row][col] || this.winner()) return;
 
-    this.board()[row][col] = this.currentPlayer();
+    const next = this.board().map(r => [...r]);
+    next[row][col] = this.currentPlayer();
+    this.board.set(next);
 
     if (this.checkWinner()) {
-      this.winner.set(this.currentPlayer() as 'X' | 'O');
+      this.winner.set(this.currentPlayer());
       this.showResult.set(true);
     } else if (this.checkDraw()) {
       this.isDraw.set(true);
@@ -61,34 +53,25 @@ export class CardComponent implements OnInit {
   }
 
   checkDraw(): boolean {
-    for (let row of this.board()) {
-      for (let cell of row) {
-        if (cell === '') return false;
-      }
-    }
-    return true;
+    return this.board().every(row => row.every(cell => cell !== ''));
   }
 
-  get resultTitle(): string {
+  resultTitle = computed(() => {
     if (this.winner()) return `Winner is ${this.winner()}! 🎉`;
     if (this.isDraw()) return `It's a Draw! 🤝`;
     return '';
-  }
+  });
 
-  get winnerBadgeClasses(): Record<string, boolean> {
-    return {
-      'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30':
-        this.winner() === 'X',
-      'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30':
-        this.winner() === 'O',
-    };
-  }
+  winnerBadgeClasses = computed(() => ({
+    'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30': this.winner() === 'X',
+    'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30': this.winner() === 'O'
+  }));
 
   closeModal(): void {
     this.showResult.set(false);
   }
 
-  // ✅ FIX: Add this method
+  // :white_check_mark: FIX: Add this method
   playAgain(): void {
     this.initializeGame();
   }
