@@ -41,7 +41,31 @@ npm start
 
 ## Authors
 
-- [Youssef Yasser Mahmoud](https://github.com/Youssef-Yasser-Mahmoud)
-- [Youssef Ezzat](https://github.com/YoussefEzzat17)
-
 This project was developed collaboratively with my friend Youssef Ezzat. Special thanks to him for his contributions!
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Youssef-Yasser-Mahmoud">
+        <img
+          src="https://avatars.githubusercontent.com/Youssef-Yasser-Mahmoud"
+          width="100px;"
+          alt="Youssef Yasser"
+        /><br />
+        <sub><b>Youssef Yasser</b></sub> </a
+      ><br />
+      <a href="https://www.linkedin.com/in/youssef-yasser-mahmoud/">LinkedIn</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/YoussefEzzat17">
+        <img
+          src="https://avatars.githubusercontent.com/YoussefEzzat17"
+          width="100px;"
+          alt="Youssef Ezzat"
+        /><br />
+        <sub><b>Youssef Ezzat</b></sub> </a
+      ><br />
+      <a href="https://www.linkedin.com/in/youssef-ezzat17/">LinkedIn</a>
+    </td>
+  </tr>
+</table>
