@@ -3,29 +3,29 @@
   <div
     class="mb-6 rounded-xl border border-slate-700 bg-slate-800/60 p-4 shadow-lg backdrop-blur w-full max-w-md"
   >
-    @if (!winner && !isDraw) {
+    @if (!winner() && !isDraw()) {
     <div class="flex items-center justify-between">
       <span class="text-slate-300">Current Turn:</span>
       <span
         class="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-sm font-semibold"
         [class]="{
           'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30':
-            currentPlayer === 'X',
+            currentPlayer() === 'X',
           'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30':
-            currentPlayer === 'O'
+            currentPlayer() === 'O'
         }"
       >
-        {{ currentPlayer }}
+        {{ currentPlayer() }}
       </span>
     </div>
-    } @else { @if (winner) {
+    } @else { @if (winner()) {
     <div class="flex items-center justify-between">
       <span class="text-slate-300">Winner:</span>
       <span
         class="inline-flex items-center gap-2 rounded-lg px-3 py-1 text-sm font-semibold"
         [class]="winnerBadgeClasses"
       >
-        {{ winner }}
+        {{ winner() }}
       </span>
     </div>
     } @else {
@@ -37,12 +37,12 @@
   <div
     class="grid grid-cols-3 gap-3 p-3 rounded-2xl bg-slate-800/40 border border-slate-700 shadow-xl w-full max-w-md"
   >
-    @for (row of board; track $index; let i = $index) { @for (cell of row; track
-    $index; let j = $index) {
+    @for (row of board(); track $index; let i = $index) { @for (cell of row;
+    track $index; let j = $index) {
     <button
       type="button"
       class="aspect-square w-full rounded-xl bg-slate-900/60 border border-slate-700 flex items-center justify-center text-4xl font-extrabold transition-all duration-200 hover:scale-[1.03] hover:border-indigo-500/60 hover:bg-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 disabled:opacity-70 disabled:cursor-not-allowed"
-      [disabled]="cell || winner"
+      [disabled]="cell || winner()"
       (click)="makeMove(i, j)"
     >
       <span
