@@ -3,6 +3,7 @@
 A simple XO (Tic-Tac-Toe) game built with Angular.
 
 ## Demo
+
 https://xo-game-ten-chi.vercel.app/
 
 ## Features
@@ -41,6 +42,6 @@ npm start
 ## Authors
 
 - [Youssef Yasser Mahmoud](https://github.com/Youssef-Yasser-Mahmoud)
-- [Youssef Ezzat](https://github.com/YoussefEzzat)
+- [Youssef Ezzat](https://github.com/YoussefEzzat17)
 
 This project was developed collaboratively with my friend Youssef Ezzat. Special thanks to him for his contributions!
