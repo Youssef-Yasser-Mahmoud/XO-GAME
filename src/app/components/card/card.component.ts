@@ -1,18 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-card',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './card.component.html',
-
 })
 export class CardComponent implements OnInit {
   board: string[][] = [];
   currentPlayer: string = '';
   winner: 'X' | 'O' | null = null;
   isDraw: boolean = false;
-
 
   showResult: boolean = false;
 
@@ -24,7 +21,7 @@ export class CardComponent implements OnInit {
     this.board = [
       ['', '', ''],
       ['', '', ''],
-      ['', '', '']
+      ['', '', ''],
     ];
     this.currentPlayer = 'X';
     this.winner = null;
@@ -34,7 +31,7 @@ export class CardComponent implements OnInit {
 
   makeMove(row: number, col: number): void {
     if (this.board[row][col] || this.winner) {
-      return; 
+      return;
     }
 
     this.board[row][col] = this.currentPlayer;
@@ -81,8 +78,10 @@ export class CardComponent implements OnInit {
 
   get winnerBadgeClasses(): Record<string, boolean> {
     return {
-      'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30': this.winner === 'X',
-      'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30': this.winner === 'O'
+      'bg-sky-500/15 text-sky-300 ring-1 ring-inset ring-sky-500/30':
+        this.winner === 'X',
+      'bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-500/30':
+        this.winner === 'O',
     };
   }
 
